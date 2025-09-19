@@ -1,0 +1,6 @@
+name: orchestrator-paper
+version: '1.0.1'
+main: me.wowkfccc.orchestratorPaper.OrchestratorPaper
+api-version: '1.21'
+authors: [ wowkfccc(wow肯德雞爺爺欸) ]
+description: A player action  system
