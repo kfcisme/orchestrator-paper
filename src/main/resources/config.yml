@@ -1,18 +1,15 @@
-# ===== Server/Inventory =====
 server:
-  id: "self"                 # 本伺服器 ID（寫入/查詢時用）
-  capacity_cpu: 100.0        # 物理上限（%）
-  headroom: 0.80             # 安全係數（可用 = capacity_cpu * headroom）
+  id: "self"
+  capacity_cpu: 100.0
+  headroom: 0.80
   capacity_ram_mb: 8192
   headroom_ram: 0.80
 
-# ===== LSTM 服務 =====
 lstm:
   enabled: true
   base_url: "http://127.0.0.1:8900"
   timeout_ms: 1500
 
-# ===== MLR 係數（可從離線訓練結果貼上）=====
 regression:
   intercept: 5.0
   beta:
