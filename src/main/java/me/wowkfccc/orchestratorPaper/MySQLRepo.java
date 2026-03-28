@@ -15,7 +15,7 @@ public class MySQLRepo implements Ports.MetricsRepo {
     public MySQLRepo(PaperConfig C){
         this.C = C;
 
-        // 初始化 HikariCP
+        // HikariCP
         HikariConfig cfg = new HikariConfig();
         cfg.setJdbcUrl(C.jdbcUrl);
         cfg.setUsername(C.jdbcUser);
@@ -25,7 +25,6 @@ public class MySQLRepo implements Ports.MetricsRepo {
         cfg.setPoolName("MLP-Orchestrator");
         ds = new HikariDataSource(cfg);
 
-        // 啟動時檢查 / 建立表格
         ensureTables();
     }
 
@@ -33,7 +32,7 @@ public class MySQLRepo implements Ports.MetricsRepo {
         try (Connection conn = ds.getConnection()) {
             DatabaseMetaData meta = conn.getMetaData();
 
-            // comp 表
+            // comp
             if (!tableExists(meta, C.tblComp)) {
                 try (Statement st = conn.createStatement()) {
                     st.executeUpdate("CREATE TABLE `" + C.tblComp + "` (" +
@@ -47,7 +46,7 @@ public class MySQLRepo implements Ports.MetricsRepo {
                 }
             }
 
-            // load 表
+            // load
             if (!tableExists(meta, C.tblLoad)) {
                 try (Statement st = conn.createStatement()) {
                     st.executeUpdate("CREATE TABLE `" + C.tblLoad + "` (" +
@@ -60,7 +59,7 @@ public class MySQLRepo implements Ports.MetricsRepo {
                 }
             }
 
-            // pred 表
+            // pred
             if (!tableExists(meta, C.tblPred)) {
                 try (Statement st = conn.createStatement()) {
                     st.executeUpdate("CREATE TABLE `" + C.tblPred + "` (" +
@@ -84,7 +83,7 @@ public class MySQLRepo implements Ports.MetricsRepo {
         }
     }
 
-    // === 實作 MetricsRepo ===
+
 
     @Override
     public List<CompPoint> recentComp(int horizon) {

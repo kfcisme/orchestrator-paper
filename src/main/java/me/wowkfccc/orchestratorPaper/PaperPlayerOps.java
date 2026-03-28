@@ -19,7 +19,6 @@ public class PaperPlayerOps implements Ports.PlayerOps {
 
     @Override
     public void movePlayer(String playerId, String targetServerId) {
-        // Paper 端不跨實例搬人；如要搬，請透過 Plugin Messaging 告知 Proxy 處理
         if (C.logPlanOnly) {
             Bukkit.getLogger().info("[MLP-Paper] plan move "+playerId+" -> "+targetServerId+" (log only)");
         }

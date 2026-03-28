@@ -12,18 +12,18 @@ public class OrchestratorPaper extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // 讀取設定
+        // load setting
         saveDefaultConfig();
         C = new PaperConfig(this);
         getLogger().info("[MLP-Paper] enabled. serverId=" + C.serverId);
 
-        // 準備 adapters
+        // adapters
         Ports.ServerInventory inv = new PaperInventory(C);
         Ports.PlayerOps pops = new PaperPlayerOps(C);
-        Ports.MetricsRepo repo = new MySQLRepo(C);     // 先用 stub；之後換 JDBC 版
-        Ports.ScalerOps scaler = new LocalScaler(C);   // Paper 不真的開關實例
+        Ports.MetricsRepo repo = new MySQLRepo(C);
+        Ports.ScalerOps scaler = new LocalScaler(C);
 
-        // Core 組件
+        // Core
         LstmClient lstm = new LstmClient(C.lstmBase, C.lstmTimeout);
 
         Regressor.Coef coef = new Regressor.Coef();
@@ -41,7 +41,6 @@ public class OrchestratorPaper extends JavaPlugin {
 
         engine = new OrchestratorEngine(inv, pops, repo, scaler, lstm, reg, planner, autoscaler);
 
-        // 每 5 分鐘跑一次（首次延遲 1 分鐘）
         long firstDelayTicks = 20L * 60;
         long periodTicks = 20L * 60 * 5;
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
